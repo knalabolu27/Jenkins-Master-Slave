@@ -1,5 +1,4 @@
 # Jenkins-Master-Slave
-# Build and Deploy Java Maven HelloWorld Application in Tomcat 9 with JDK 8 in Amazon EC2
 
 ## Launch an instance
 Select amazon linux instance and configure the settings. In the step-5 Add tags with the name and in the step-6 configure security group with a new security group(open port 22 and 8080 in the inbound rule with CIDR 0.0.0.0/0 to access from anywhere for now).
@@ -12,7 +11,7 @@ A key pair gets downloaded before launching the instance
 ## Update all the applications before installing
 `sudo yum update -y`
 
-## Install java
+## use below steps to install java on all the master and slave nodes
 https://bhargavamin.com/how-to-do/setting-up-java-environment-variable-on-ec2/
 ```
 sudo yum install java-1.8.0
@@ -20,6 +19,7 @@ sudo yum remove java-1.7.0-openjdk
 ```
 ## To check the java installed location
 `file $(which java)`
+
 ### To set the java path
 ```
 sudo /usr/sbin/alternatives --set java /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java
@@ -27,17 +27,17 @@ sudo /usr/sbin/alternatives --set javac /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bi
 export JAVA_HOME="/usr/lib/jvm/jre-1.8.0-openjdk.x86_64"
 export PATH=$JAVA_HOME/bin:$PATH  
 ```
+
 ### To set the java path to bash_profile
 add below content to `~/.bash_profile` file
 ```
 export JAVA_HOME="/usr/lib/jvm/jre-1.8.0-openjdk.x86_64"
 export PATH=$JAVA_HOME/bin:$PATH 
 ```
+
 ### To check JAVA_HOME
 `echo $JAVA_HOME`
 
-
-## use above steps to install java on all the master and slave nodes
 
 ## Install Jenkins on master node  
 https://medium.com/@itsmattburgess/installing-jenkins-on-amazon-linux-16aaa02c369c
@@ -54,7 +54,8 @@ Make sure port 8080 is open in security group inbound rules of that virtual mach
 `http://{ec2-public-dns}:8080`
 ### Jenkins Home directory
 `/var/lib/jenkins/`
-#### Configure Jenkins
+
+### Configure Jenkins
 - The default Username is `admin`
 - Grab the default password 
   - Password Location:`/var/lib/jenkins/secrets/initialAdminPassword`
@@ -71,18 +72,6 @@ Jenkins is a self-contained Java-based program, ready to run out-of-the-box, wit
 ### Follow this article in **[Youtube](https://youtu.be/hwrYURP4O2k)**
 ![Jenkins Master and Slave Configuration](https://raw.githubusercontent.com/miztiik/DevOps-Demos/master/setup-jenkins-slave/images/Jenkins%20Master%20and%20Slave%20Configuration.png)
 
-### Prerequisites
-1. Jenkins Master Running [Get help here](https://youtu.be/-0dkiteJEuE)
-1. EC2 RHEL 7.x Instance - _for Slave Node_ [Get help here](https://www.youtube.com/watch?v=KDtS6BzJo3A)
-   - With Internet Access
-   - Security Group with Port `8080` open for internet
-   - Java v1.8.x 
-
-## Install Java
-We will be using open java for our demo, Get latest version from http://openjdk.java.net/install/. Also configure the default `JAVA_HOME` path
-```sh
-yum install java-1.8*
-#yum -y install java-1.8.0-openjdk
 ```
 ## Setup Jenkins Slave
 ```sh
