@@ -36,4 +36,20 @@ export PATH=$JAVA_HOME/bin:$PATH
 ### To check JAVA_HOME
 `echo $JAVA_HOME`
 
-# use above steps to install java on all the master and slave nodes
+## use above steps to install java on all the master and slave nodes
+
+## Install Jenkins on master node  
+https://medium.com/@itsmattburgess/installing-jenkins-on-amazon-linux-16aaa02c369c
+```
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo yum install jenkins
+sudo service jenkins start
+```
+### Jenkins to automatically start when your instance is started
+`sudo chkconfig --add jenkins`
+### To access Jenkins server
+Make sure port 8080 is open in security group inbound rules of that virtual machine.
+`http://{ec2-public-dns}:8080`
+### Jenkins Home directory
+`/var/lib/jenkins/`
